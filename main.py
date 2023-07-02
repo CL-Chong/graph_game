@@ -85,6 +85,8 @@ x = symbols("x")
 while True:
     try:
         n_criteria = int(input("Enter the number of conditions: "))
+        if n_criteria <= 0:
+            continue
         break
     except ValueError:
         pass
@@ -110,7 +112,7 @@ while True:
         try:
             answer = sympy.sympify(answer_raw)
             break
-        except ValueError:
+        except (ValueError, TypeError):
             print("Incorrect format. Please try again.")
     result = check_answer(answer, criteria_type, criteria_value)
     if result == 0:
