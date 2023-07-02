@@ -82,7 +82,12 @@ def check_answer(answer, criteria_type, criteria_value):
     return 1
 
 x = symbols("x")
-n_criteria = int(input("Enter the number of conditions: "))
+while True:
+    try:
+        n_criteria = int(input("Enter the number of conditions: "))
+        break
+    except ValueError:
+        pass
 criteria_type, criteria_value = generate_question(n_criteria)
 #print(criteria_type)
 #print(criteria_value)
@@ -100,12 +105,17 @@ for k in range(n_criteria):
         text = str(k+1) + '. has a local maximum at x = ' + str(value)
     print(text)
 while True:
-    answer_raw = input("Enter your polynomial here: ")
-    answer = sympy.sympify(answer_raw)
+    while True:
+        answer_raw = input("Enter your polynomial here: ")
+        try:
+            answer = sympy.sympify(answer_raw)
+            break
+        except ValueError:
+            print("Incorrect format. Please try again.")
     result = check_answer(answer, criteria_type, criteria_value)
     if result == 0:
-        yn = input('Retry question? (Y/N) ')
-        if yn == 'N':
+        yn = input('Retry question? (Enter Y to retry, any other key to skip) ')
+        if yn != 'Y':
             break
     if result == 1:
         break
